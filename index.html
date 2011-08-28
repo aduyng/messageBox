@@ -1,83 +1,182 @@
+<!--/******************************************************************************
+ * messageBox
+ * @author Duy A. Nguyen aduyng@gmail.com, http://duy-nguyen.info
+ * ****************************************************************************/-->
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset='utf-8'>
+    <head>
+        <title>messageBox Demo</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <style type="text/css">
+            /* import jquery ui style */
+            @import url(http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/themes/ui-darkness/jquery-ui.css);
+            /* import Droid font */
+            @import url(http://fonts.googleapis.com/css?family=Droid+Serif);
+            /* just for syntax highlight*/
+            @import url(http://alexgorbatchev.com/pub/sh/current/styles/shThemeDefault.css);
+            /* import messageBox style */
+            @import url(messageBox.css);
 
-  <title>aduyng/messageBox @ GitHub</title>
+            *{
+                font-family: 'Droid Serif', serif;
+            }
+            body{
+                font-size: small;
+            }
 
-  <style type="text/css">
-    body {
-      margin-top: 1.0em;
-      background-color: #888;
-      font-family: Helvetica, Arial, FreeSans, san-serif;
-      color: #ffffff;
-    }
-    #container {
-      margin: 0 auto;
-      width: 700px;
-    }
-    h1 { font-size: 3.8em; color: #28e5b8; margin-bottom: 3px; }
-    h1 .small { font-size: 0.4em; }
-    h1 a { text-decoration: none }
-    h2 { font-size: 1.5em; color: #28e5b8; }
-    h3 { text-align: center; color: #28e5b8; }
-    a { color: #28e5b8; }
-    .description { font-size: 1.2em; margin-bottom: 30px; margin-top: 30px; font-style: italic;}
-    .download { float: right; }
-    pre { background: #000; color: #fff; padding: 15px;}
-    hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
-    .footer { text-align:center; padding-top:30px; font-style: italic; }
-  </style>
-</head>
+        </style>
+    </head>
+    <body>
+        <h1>What is $.messageBox?</h1>
+        <p>An WinForm MessageBox class equivalent in JavaScript based on jQueryUI. <a href="messageBox.zip">Download it here</a>. Enjoy! <br />
+            - <a href="http://duy-nguyen.info" target="blank">Duy A. Nguyen</a>
+        </p>
+        
+        <h1>Required set up</h1>
+        <h2>CSS</h2>
+        <pre class="brush: css">
+                &lt;style type=&quot;text/css&quot;&gt;
+                    /* import jquery ui style */
+                    @import url("http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/themes/ui-darkness/jquery-ui.css");
 
-<body>
-  <a href="http://github.com/aduyng/messageBox"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
+                    /* import messageBox style */
+                    @import url("messageBox.css");
+                &lt;/style&gt;
+        </pre>
+        <h2>Javascript</h2>
+        <pre class="brush: js">
+                &lt;!-- jquery &amp; jqueryUI include--&gt;
+                &lt;script type=&quot;text/javascript&quot; src=&quot;https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js&quot;&gt;&lt;/script&gt; 
+                &lt;script type=&quot;text/javascript&quot; src=&quot;https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/jquery-ui.min.js&quot;&gt;&lt;/script&gt;    
+                &lt;!-- messageBox include --&gt;
+                &lt;script type=&quot;text/javascript&quot; src=&quot;messageBox.js&quot;&gt;&lt;/script&gt;
+        </pre>
+        <h1>Examples</h1>
+        <h2>Default</h2>
+        <pre class="brush: js">
+                $.messageBox.show(&quot;Your text goes here&quot;);
+        </pre>
+        <button id="default-button" class="button-demo">Show</button>
+        <h2>Alert Dialog</h2>
+        <pre class="brush: js">
+                $.messageBox.show({
+                    caption: &quot;Your title goes here&quot;,
+                    text: &quot;Your text goes here&quot;,
+                    ok: function(){
+                        alert('You click OK');
+                    }
+                });
+        </pre>
+        <button id="simple-button" class="button-demo">Show</button>
+        <h2>Confirm Dialog</h2>
+        <pre class="brush: js">
+                $.messageBox.show({
+                        caption: &quot;Confirm&quot;,
+                        text: &quot;Are you sure you want to delete this record?&quot;,
+                        buttons: $.messageBox.Buttons.YesNo,
+                        icon: $.messageBox.Icon.Exclamation,
+                        yes: function(){
+                            alert('You click YES');
+                        },
+                        no: function(){
+                            alert('You click NO');
+                        }
+                    });
+        </pre>
+        <button id="confirm-button" class="button-demo">Show</button>
+        <h2>Abort-Retry-Ignore Dialog</h2>
+        <pre class="brush: js">
+                $.messageBox.show({
+                        caption: &quot;Error&quot;,
+                        text: &quot;Could not delete file ABC.pdf since it is currently inused. What do you want to do next?&quot;,
+                        buttons: $.messageBox.Buttons.AbortRetryIgnore,
+                        icon: $.messageBox.Icon.Error,
+                        abort: function(){
+                            alert('You click Abort');
+                        },
+                        retry: function(){
+                            alert('You click Retry');
+                        },
+                        ignore: function(){
+                            alert('You click Ignore');
+                        }
+                  });
+        </pre>
+        <button id="abort-retry-ignore-button" class="button-demo">Show</button>
+        <span id="message"></span>
+        <!-- jquery & jqueryUI include-->
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script> 
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/jquery-ui.min.js"></script> 
 
-  <div id="container">
+        <!-- just for syntax highlight -->
+        <script src="http://alexgorbatchev.com/pub/sh/current/scripts/shCore.js" type="text/javascript"></script>
+        <script src="http://alexgorbatchev.com/pub/sh/current/scripts/shAutoloader.js" type="text/javascript"></script>
+        <script src="http://alexgorbatchev.com/pub/sh/current/scripts/shBrushJScript.js" type="text/javascript"></script>
+        <script src="http://alexgorbatchev.com/pub/sh/current/scripts/shBrushCss.js" type="text/javascript"></script>
 
-    <div class="download">
-      <a href="http://github.com/aduyng/messageBox/zipball/master">
-        <img border="0" width="90" src="http://github.com/images/modules/download/zip.png"></a>
-      <a href="http://github.com/aduyng/messageBox/tarball/master">
-        <img border="0" width="90" src="http://github.com/images/modules/download/tar.png"></a>
-    </div>
-
-    <h1><a href="http://github.com/aduyng/messageBox">messageBox</a>
-      <span class="small">by <a href="http://github.com/aduyng">aduyng</a></span></h1>
-
-    <div class="description">
-      An WinForm MessageBox class equivalent in JavaScript based on jQueryUI.
-    </div>
-
-    <h2>Dependencies</h2>
-<p>+ jquery
-+ jqueryUI
-</p>
-<h2>License</h2>
-<p>MIT or GPL Version 2 licenses</p>
-<h2>Authors</h2>
-<p>Duy Anh Nguyen (http://duy-nguyen.info)<br/><br/>      </p>
-<h2>Contact</h2>
-<p>Duy Anh Nguyen (http://duy-nguyen.info)<br/>      </p>
-
-
-    <h2>Download</h2>
-    <p>
-      You can download this project in either
-      <a href="http://github.com/aduyng/messageBox/zipball/master">zip</a> or
-      <a href="http://github.com/aduyng/messageBox/tarball/master">tar</a> formats.
-    </p>
-    <p>You can also clone the project with <a href="http://git-scm.com">Git</a>
-      by running:
-      <pre>$ git clone git://github.com/aduyng/messageBox</pre>
-    </p>
-
-    <div class="footer">
-      get the source code on GitHub : <a href="http://github.com/aduyng/messageBox">aduyng/messageBox</a>
-    </div>
-
-  </div>
-
-  
-</body>
+        <!-- messageBox include -->
+        <script type="text/javascript" src="messageBox.js"></script> 
+        <script type="text/javascript">
+            $(function(){
+                //create fancy jqueryui button
+                $('.button-demo').button({
+                    icons:{
+                        primary:'ui-icon-newwin'
+                    }
+                });
+                
+                $('#default-button').click(function(){
+                    $.messageBox.show("Your text goes here");
+                });
+                
+                $('#simple-button').click(function(){
+                    $.messageBox.show({
+                        caption: "Your title goes here",
+                        text: "Your text goes here",
+                        ok: function(){
+                            alert('You click OK');
+                        }
+                    });
+                });
+                
+                
+                $('#confirm-button').click(function(){
+                    $.messageBox.show({
+                        caption: "Confirm",
+                        text: "Are you sure you want to delete this record?",
+                        buttons: $.messageBox.Buttons.YesNo,
+                        icon: $.messageBox.Icon.Exclamation,
+                        yes: function(){
+                            alert('You click YES');
+                        },
+                        no: function(){
+                            alert('You click NO');
+                        }
+                    });
+                });
+                
+                $('#abort-retry-ignore-button').click(function(){
+                    $.messageBox.show({
+                        caption: "Error",
+                        text: "Could not delete file ABC.pdf since it is currently inused. What do you want to do next?",
+                        buttons: $.messageBox.Buttons.AbortRetryIgnore,
+                        icon: $.messageBox.Icon.Error,
+                        abort: function(){
+                            alert('You click Abort');
+                        },
+                        retry: function(){
+                            alert('You click Retry');
+                        },
+                        ignore: function(){
+                            alert('You click Ignore');
+                        }
+                    });
+                });
+                
+                SyntaxHighlighter.all();
+            });
+            
+            
+        </script>
+    </body>
 </html>
